@@ -14,9 +14,36 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Brand.init({
-    name: DataTypes.STRING,
-    logo: DataTypes.STRING,
-    banner: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your brand name"
+        }
+      }
+    },
+    logo: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your logo"
+        }
+      }
+    },
+    banner: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your banner"
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Brand',

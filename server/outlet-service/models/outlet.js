@@ -15,10 +15,56 @@ module.exports = (sequelize, DataTypes) => {
   }
   Outlet.init({
     name: DataTypes.STRING,
-    picture: DataTypes.STRING,
-    address: DataTypes.STRING,
-    longitude: DataTypes.FLOAT,
-    latitude: DataTypes.FLOAT
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your outlet name"
+        }
+      }
+    },
+    picture: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your picture"
+        }
+      }
+    },
+    address: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your address"
+        }
+      }
+    },
+    longitude: {
+      type: DataTypes.FLOAT,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your longitude"
+        }
+      }
+    },
+    picture: {
+      type: DataTypes.FLOAT,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Please enter your latitude"
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Outlet',
