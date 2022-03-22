@@ -1,7 +1,10 @@
 const { Brand, Outlet, Product } = require('../models/index');
 const geolib = require('geolib');
+const { resolvers: scalarResolvers } = require('graphql-scalars');
 
 const resolvers = {
+  ScalarName: scalarResolvers,
+
   Query: {
     async getOutlets() {
       let outlets = await Outlet.findAll()

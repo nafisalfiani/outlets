@@ -1,13 +1,15 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+  scalar ScalarName
+
   type Brand {
     id: ID
     name: String
     logo: String
     banner: String
-    createdAt: String
-    updatedAt: String
+    createdAt: Date
+    updatedAt: Date
     Outlets: [Outlet]
   }
 
@@ -26,8 +28,8 @@ const typeDefs = gql`
     longitude: String
     latitude: String
     distance: String
-    createdAt: String
-    updatedAt: String
+    createdAt: Date
+    updatedAt: Date
     BrandId: ID
   }
 
@@ -46,8 +48,8 @@ const typeDefs = gql`
     name: String
     picture: String
     price: Int
-    createdAt: String
-    updatedAt: String
+    createdAt: Date
+    updatedAt: Date
     BrandId: ID
   }
 
