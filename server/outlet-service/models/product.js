@@ -47,11 +47,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Product',
   });
 
-  Product.beforeCreate((product, options) => {
-    console.log("data product ==>")
-    console.log( product)
-      return product;
-  });
-
   return Product;
 };

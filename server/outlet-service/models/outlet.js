@@ -66,11 +66,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Outlet',
   });
 
-  // Outlet.afterCreate((outlet, options) => {
-  //   console.log("data outlet ==>")
-  //   console.log( outlet)
-  //     return outlet.distance = geolib.convertDistance(geolib.getDistance(monasLoc, outletLoc, 1000), 'km');
-  // });
-
   return Outlet;
 };

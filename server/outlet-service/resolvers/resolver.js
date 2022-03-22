@@ -4,27 +4,31 @@ const geolib = require('geolib');
 const resolvers = {
   Query: {
     async getOutlets() {
-      const outlets = await Outlet.findAll()
+      let outlets = await Outlet.findAll()
 
       const monasLoc = {
         'latitude': -6.1751790639028705,
         'longitude': 106.8272278996774,
       };
+    
       for (let i = 0; i < outlets.length; i++) {
         const outletLoc = {
           'latitude': outlets[i].latitude,
           'longitude': outlets[i].longitude,
         };
 
-        outlets[i].distance = geolib.convertDistance(geolib.getDistance(monasLoc, outletLoc, 1000)) +' km';
+        outlets[i].distance = geolib.convertDistance(geolib.getDistance(monasLoc, outletLoc, 1), "km") +' km';
       }
+
+      outlets.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0))
 
       return outlets
     },
     async getProducts() {
       return await Product.findAll()
     },
-    // Eager Loading.
+
+    // eager loading
     async getBrands() {
       temp = await Brand.findAll({
         include : [
@@ -32,7 +36,6 @@ const resolvers = {
       ]
       })
 
-      console.log(temp);
       return temp
     },
   },
@@ -43,7 +46,7 @@ const resolvers = {
         name: args.input.name,
         logo: args.input.logo,
         banner: args.input.banner,
-        createdAt: Date(),
+        createdAt: new Date(),
       };
 
       return await Brand.create(payload);
@@ -56,7 +59,7 @@ const resolvers = {
         address: args.input.address,
         longitude: args.input.longitude,
         latitude: args.input.latitude,
-        createdAt: Date(),
+        createdAt: new Date(),
         BrandId: +args.input.BrandId
       };
 
@@ -68,7 +71,7 @@ const resolvers = {
         name: args.input.name,
         picture: args.input.picture,
         price: args.input.price,
-        createdAt: Date(),
+        createdAt: new Date(),
         BrandId: +args.input.BrandId
       };
       console.log(args.input.brandId, '>>>>args');
@@ -81,7 +84,7 @@ const resolvers = {
         name: args.input.name,
         logo: args.input.logo,
         banner: args.input.banner,
-        updatedAt: Date(),
+        updatedAt: new Date(),
       };
 
       const brand =  await Brand.update(payload, {
@@ -99,7 +102,7 @@ const resolvers = {
         address: args.input.address,
         longitude: args.input.longitude,
         latitude: args.input.latitude,
-        updatedAt: Date(),
+        updatedAt: new Date(),
       };
 
       const outlet = await Outlet.update(payload, {
@@ -115,7 +118,7 @@ const resolvers = {
         name: args.input.name,
         picture: args.input.picture,
         price: args.input.price,
-        updatedAt: Date(),
+        updatedAt: new Date(),
       };
 
       const product = await Product.update(payload, {
