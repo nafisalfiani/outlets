@@ -5,9 +5,13 @@ module.exports = {
     await queryInterface.addColumn('Outlets', 'BrandId', {
       type: Sequelize.INTEGER,
       references: {
-        model: "Brands",
+        model: {
+          tableName: "Brands"
+        },
         key: "id"
-      }
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
     })
   },
 

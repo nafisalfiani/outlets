@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   Product.init({
     name: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -26,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     picture: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -36,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.INTEGER,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -44,9 +41,17 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    BrandId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Product',
   });
+
+  Product.beforeCreate((product, options) => {
+    console.log("data product ==>")
+    console.log( product)
+      return product;
+  });
+
   return Product;
 };

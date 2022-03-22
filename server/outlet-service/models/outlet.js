@@ -1,4 +1,5 @@
 'use strict';
+// const geolib = require('geolib');
 const {
   Model
 } = require('sequelize');
@@ -14,10 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Outlet.init({
-    name: DataTypes.STRING,
     name: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -27,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     picture: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -37,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -47,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     longitude: {
       type: DataTypes.FLOAT,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -55,9 +51,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    picture: {
+    latitude: {
       type: DataTypes.FLOAT,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -65,9 +60,17 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    BrandId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Outlet',
   });
+
+  // Outlet.afterCreate((outlet, options) => {
+  //   console.log("data outlet ==>")
+  //   console.log( outlet)
+  //     return outlet.distance = geolib.convertDistance(geolib.getDistance(monasLoc, outletLoc, 1000), 'km');
+  // });
+
   return Outlet;
 };

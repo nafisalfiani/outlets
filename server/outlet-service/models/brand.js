@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
   Brand.init({
     name: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -28,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     logo: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -38,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     banner: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
