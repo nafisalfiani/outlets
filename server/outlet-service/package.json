@@ -12,6 +12,10 @@
   "dependencies": {
     "apollo-server": "^3.6.5",
     "graphql": "^16.3.0",
+    "graphql-scalars": "^1.15.0",
+    "graphql-sequelize": "^9.4.3",
+    "install": "^0.13.0",
+    "npm": "^8.5.5",
     "pg": "^8.7.3",
     "sequelize": "^6.17.0"
   },
