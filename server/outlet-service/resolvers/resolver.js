@@ -2,25 +2,31 @@ const { Brand, Outlet, Product } = require('../models/index');
 const geolib = require('geolib');
 const { resolvers: scalarResolvers } = require('graphql-scalars');
 
+function getDistance(lat, long) {
+  const monasLoc = {
+    'latitude': -6.1751790639028705,
+    'longitude': 106.8272278996774,
+  };
+
+  const outletLoc = {
+    'latitude': lat,
+    'longitude': long,
+  };
+
+  let dist = geolib.getDistance(monasLoc, outletLoc, 1);
+  let distInKm = geolib.convertDistance(dist, 'km') +' km';
+
+  return distInKm
+}
+
 const resolvers = {
   ScalarName: scalarResolvers,
 
   Query: {
     async getOutlets() {
       let outlets = await Outlet.findAll()
-
-      const monasLoc = {
-        'latitude': -6.1751790639028705,
-        'longitude': 106.8272278996774,
-      };
-    
       for (let i = 0; i < outlets.length; i++) {
-        const outletLoc = {
-          'latitude': outlets[i].latitude,
-          'longitude': outlets[i].longitude,
-        };
-
-        outlets[i].distance = geolib.convertDistance(geolib.getDistance(monasLoc, outletLoc, 1), "km") +' km';
+        outlets[i].distance = getDistance(outlets[i].latitude, outlets[i].longitude)
       }
 
       outlets.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0))
@@ -38,7 +44,14 @@ const resolvers = {
           { model : Outlet }
       ]
       })
-
+    
+      for (let i = 0; i < temp.length; i++) {
+        for (let j = 0; j < temp[i].Outlets.length; j++) {
+          temp[i].Outlets[j].distance = getDistance(temp[i].Outlets[j].latitude, temp[i].Outlets[j].longitude)
+        }
+  
+        temp[i].Outlets.sort((a,b) => (a.distance > b.distance) ? 1 : ((b.distance > a.distance) ? -1 : 0))
+      }
       return temp
     },
   },
